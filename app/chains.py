@@ -4,11 +4,13 @@ from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.exceptions import OutputParserException
 from dotenv import load_dotenv
+from langchain.globals import set_verbose
 
 load_dotenv()
 
 class Chain:
     def __init__(self):
+        set_verbose(True)  # Set verbosity
         self.llm = ChatGroq(temperature=0, groq_api_key=os.getenv("GROQ_API_KEY"), model_name="llama-3.1-70b-versatile")
 
     def extract_jobs(self, cleaned_text):
@@ -39,14 +41,14 @@ class Chain:
             {job_description}
 
             ### INSTRUCTION:
-            You are Mohan, a business development executive at AtliQ. AtliQ is an AI & Software Consulting company dedicated to facilitating
+            You are Hari, a Python Developer at Jtek. Jtek is an AI & Software Consulting company dedicated to facilitating
             the seamless integration of business processes through automated tools. 
             Over our experience, we have empowered numerous enterprises with tailored solutions, fostering scalability, 
             process optimization, cost reduction, and heightened overall efficiency. 
-            Your job is to write a cold email to the client regarding the job mentioned above describing the capability of AtliQ 
+            Your job is to write a cold email to the client regarding the job mentioned above describing the capability of Jtek 
             in fulfilling their needs.
-            Also add the most relevant ones from the following links to showcase Atliq's portfolio: {link_list}
-            Remember you are Mohan, BDE at AtliQ. 
+            Also add the most relevant ones from the following links to showcase Jtek's portfolio: {link_list}
+            Remember you are Hari, Python Developer at Jtek. 
             Do not provide a preamble.
             ### EMAIL (NO PREAMBLE):
 
